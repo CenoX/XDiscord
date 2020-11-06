@@ -18,7 +18,7 @@ class XcodeRPC: SBApplicationDelegate, SwordRPCDelegate {
     var rpcConnected = false
     var xcodeApp: XcodeApplication?
     var state: XcodeState?
-    var lastWindowTitleChange = Date();
+    var lastWindowTitleChange = Date()
     var timer: Timer?
     
     // MARK: -
@@ -67,11 +67,9 @@ class XcodeRPC: SBApplicationDelegate, SwordRPCDelegate {
         
         // start polling
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(5), repeats: true, block: { _ in
-            guard let app = self.xcodeApp else {
-                return
-            }
+            guard let app = self.xcodeApp else { return }
             
-            if !app.isRunning {
+            guard app.isRunning else {
                 print("ERROR: xcode appears to not be running (anymore?), quitting...")
                 self.timer?.invalidate()
                 NSApplication.shared.terminate(nil)
@@ -86,7 +84,6 @@ class XcodeRPC: SBApplicationDelegate, SwordRPCDelegate {
             }
             self.state = newState
             
-            
             self.publishState()
         })
     }
@@ -94,6 +91,7 @@ class XcodeRPC: SBApplicationDelegate, SwordRPCDelegate {
     func publishState () {
         if let state = self.state, rpcConnected {
             rpc.setPresence(state.toRichPresence(lastTitleChange: self.lastWindowTitleChange))
+            print(lastWindowTitleChange.timeIntervalSince1970)
         }
     }
     

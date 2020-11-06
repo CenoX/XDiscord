@@ -78,9 +78,9 @@ class XcodeState {
             if let contentType = getContentType() {
                 presence.assets.largeImage = contentType.djb2hash
             }
-            
-            presence.timestamps.start = lastTitleChange
         }
+
+        presence.timestamps.start = lastTitleChange
         
         return presence
     }
