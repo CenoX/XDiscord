@@ -26,3 +26,4 @@ DerivedData/
 /*.gcno
 
 Pods/
+.DS_Store
