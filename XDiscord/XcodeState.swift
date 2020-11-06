@@ -23,7 +23,7 @@ class XcodeState {
                 self.workspaceLoaded = loaded
             }
         }
-        for var windowObject in xcodeApp.windows!() {
+        for windowObject in xcodeApp.windows!() {
             let window = (windowObject as! XcodeWindow)
             
             if window.visible! && window.document != nil {

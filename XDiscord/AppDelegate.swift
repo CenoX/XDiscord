@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate{
             return
         }
         
-        let pid: pid_t = Int32(littleEndian: pidDescriptor.data[4...].withUnsafeBytes { $0.pointee })
+        let pid: pid_t = Int32(littleEndian: pidDescriptor.data[4...].withUnsafeBytes { $0.load(as: Int32.self) })
         let cpath = UnsafeMutablePointer<CChar>.allocate(capacity:Int(MAXPATHLEN))
         
         proc_pidpath(pid, cpath, UInt32(MAXPATHLEN))
